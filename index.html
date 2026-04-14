@@ -446,23 +446,24 @@ function initTeams(){
 
 /* ================= ADMIN ================= */
 function nextPlayer(){
-  const bp = parseInt(basePrice.value) || 50;
+  const playerNameInput = document.getElementById("playerInput");
+  const basePriceInput = document.getElementById("basePrice");
 
-  // ✅ CLEAR OLD RESULT & ANNOUNCEMENT
-  db.ref("auction/result").remove();
-  db.ref("announcement").remove();
+  const player = playerNameInput.value.trim() || "Unknown";
+  const bp = parseInt(basePriceInput.value) || 50;
 
   db.ref("auction").set({
-  player: playerInput.value || "Unknown",
-  price: bp,
-  lastBid: "-",
-  lock: false,
-  activePair: {},
-  lastBidderLocked: null,
-  canIncrease: false,   // 👈 ADD THIS
-  result: null
-});
+    player: player,
+    price: bp,
+    lastBid: "-",
+    lock: false,
+    activePair: {},
+    lastBidderLocked: null,
+    canIncrease: false,
+    result: null
+  });
 
+  console.log("Player set:", player);
 }
 
 function increasePrice(){
